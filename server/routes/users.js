@@ -14,3 +14,5 @@ router.get("/:id/friends", verifyToken, getUserFriends); //grab user's friends f
 
 /* UPDATE */
 router.patch("/:id/:friendId", verifyToken, addRemoveFriend); //add or remove friends
+
+export default router;
