@@ -9,10 +9,10 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 /* READ */
-router.get("/:id", verifyToken, getUser); //grab user using the particular id from DB
-router.get("/:id/friends", verifyToken, getUserFriends); //grab user's friends from DB
+router.get("/:id", verifyToken, getUser);
+router.get("/:id/friends", verifyToken, getUserFriends);
 
 /* UPDATE */
-router.patch("/:id/:friendId", verifyToken, addRemoveFriend); //add or remove friends
+router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
 
 export default router;

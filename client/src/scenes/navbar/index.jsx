@@ -38,10 +38,8 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
-  const primaryDark = theme.palette.primary.dark;
 
-  // Use optional chaining and a fallback for fullName
-  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
+  const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -53,16 +51,14 @@ const Navbar = () => {
           onClick={() => navigate("/home")}
           sx={{
             "&:hover": {
-              // color: dark,
-              textShadow: `1px 0px 2px ${primaryDark}, 0 0 0px ${primaryLight}, 0 0 0px ${primaryLight}`,
-
+              color: primaryLight,
               cursor: "pointer",
             },
           }}
         >
-          BroConnect
+          Sociopedia
         </Typography>
-        {isNonMobileScreens && ( 
+        {isNonMobileScreens && (
           <FlexBetween
             backgroundColor={neutralLight}
             borderRadius="9px"
@@ -90,11 +86,11 @@ const Navbar = () => {
           <Message sx={{ fontSize: "25px" }} />
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
-          <FormControl variant="standard">
+          <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
               sx={{
-                backgroundColor: primaryLight,
+                backgroundColor: neutralLight,
                 width: "150px",
                 borderRadius: "0.25rem",
                 p: "0.25rem 1rem",
@@ -103,7 +99,7 @@ const Navbar = () => {
                   width: "3rem",
                 },
                 "& .MuiSelect-select:focus": {
-                  backgroundColor: primaryLight,
+                  backgroundColor: neutralLight,
                 },
               }}
               input={<InputBase />}
@@ -165,7 +161,7 @@ const Navbar = () => {
             <Message sx={{ fontSize: "25px" }} />
             <Notifications sx={{ fontSize: "25px" }} />
             <Help sx={{ fontSize: "25px" }} />
-            <FormControl variant="standard">
+            <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
                 sx={{
