@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
+  const [data, setData] = useState([]);
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
@@ -15,6 +16,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     });
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
+    setData(data); // Set fetched data in state
+    console.log(data)
   };
 
   const getUserPosts = async () => {
@@ -26,7 +29,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
+    console.log(data)
     dispatch(setPosts({ posts: data }));
+    setData(data); // Set fetched data in state
   };
 
   useEffect(() => {
@@ -35,11 +40,19 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     } else {
       getPosts();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isProfile]);
+
+  useEffect(() => {
+    if (isProfile) {
+      setData(posts.filter(post => post.userId === userId));
+    } else {
+      setData(posts);
+    }
+  }, [posts, isProfile, userId]);
 
   return (
     <>
-      {posts.map(
+      {data.map(
         ({
           _id,
           userId,
